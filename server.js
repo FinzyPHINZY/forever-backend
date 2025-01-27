@@ -1,13 +1,14 @@
 import express from 'express';
 import cors from 'cors';
-import logger from 'morgan';
 import helmet from 'helmet';
-import 'dotenv/config';
-import { requestLogger } from './middlewares/util.js';
+import { config } from 'dotenv';
+import { requestLogger } from './middlewares/log/middleware.js';
 import connectDB from './config/database.js';
 import connectCloudinary from './config/cloudinary.js';
+import userRoutes from './routes/user.js';
 
 // app config
+config();
 const app = express();
 const PORT = process.env.PORT || 7000;
 
@@ -17,11 +18,13 @@ connectDB();
 // connect to cloudinary
 connectCloudinary();
 
+// middlewares
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
 app.use(requestLogger);
 
+// api endpoints
 app.get('/', (req, res) => {
   return res.json({
     success: true,
@@ -29,6 +32,8 @@ app.get('/', (req, res) => {
     message: 'Welcome to Forever',
   });
 });
+
+app.use('/api/user', userRoutes);
 
 app.listen(PORT, () => {
   console.log(
