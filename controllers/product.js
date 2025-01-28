@@ -67,13 +67,11 @@ export const getProducts = async (req, res) => {
   try {
     const products = await Product.find({});
 
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: 'Fetched products successfully',
-        data: products,
-      });
+    return res.status(200).json({
+      success: true,
+      message: 'Fetched products successfully',
+      data: products,
+    });
   } catch (error) {
     console.error('Failed to fetch products', error);
 
@@ -86,6 +84,13 @@ export const getProducts = async (req, res) => {
 // remove product
 export const removeProduct = async (req, res) => {
   try {
+    const { id } = req.params;
+
+    await Product.findByIdAndDelete(id);
+
+    return res
+      .status(200)
+      .json({ success: true, message: 'Product removed successfully' });
   } catch (error) {
     console.error('Failed to remove product', error);
 

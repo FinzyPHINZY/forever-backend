@@ -17,7 +17,7 @@ router.post(
 );
 
 // remove product
-router.post('/remove/:id', productController.removeProduct);
+router.delete('/remove/:id', productController.removeProduct);
 
 // get products
 router.get('/products', productController.getProducts);
