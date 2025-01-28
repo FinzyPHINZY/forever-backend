@@ -6,6 +6,20 @@ meta {
 
 post {
   url: http://localhost:7000/api/product/add
-  body: none
+  body: multipartForm
   auth: none
+}
+
+body:multipart-form {
+  name: shirt 3
+  description: nice top
+  price: 190
+  category: Men
+  subCategory: Topwear
+  bestseller: true
+  sizes: ["M"]
+  image1: @file(/home/finzyphinzy/Pictures/Wallpapers/wallpaperflare.com_wallpaper (7).jpg)
+  image4: @file(/home/finzyphinzy/Pictures/Wallpapers/wallpaperflare.com_wallpaper (7).jpg)
+  ~image2: @file(/home/finzyphinzy/Pictures/Wallpapers/wallpaperflare.com_wallpaper (7).jpg)
+  ~image3: @file(/home/finzyphinzy/Pictures/Wallpapers/wallpaperflare.com_wallpaper (7).jpg)
 }

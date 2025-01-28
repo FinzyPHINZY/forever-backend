@@ -34,8 +34,6 @@ export const addProduct = async (req, res) => {
       })
     );
 
-    console.log(imagesUrl);
-
     const productData = {
       name,
       description,
@@ -67,6 +65,15 @@ export const addProduct = async (req, res) => {
 // get products
 export const getProducts = async (req, res) => {
   try {
+    const products = await Product.find({});
+
+    return res
+      .status(200)
+      .json({
+        success: true,
+        message: 'Fetched products successfully',
+        data: products,
+      });
   } catch (error) {
     console.error('Failed to fetch products', error);
 
