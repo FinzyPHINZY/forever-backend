@@ -6,6 +6,7 @@ import { requestLogger } from './middlewares/log/middleware.js';
 import connectDB from './config/database.js';
 import connectCloudinary from './config/cloudinary.js';
 import userRoutes from './routes/user.js';
+import productRoutes from './routes/product.js';
 
 // app config
 config();
@@ -34,6 +35,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/user', userRoutes);
+app.use('/api/product', productRoutes);
 
 app.listen(PORT, () => {
   console.log(
