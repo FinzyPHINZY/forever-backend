@@ -7,6 +7,7 @@ import connectDB from './config/database.js';
 import connectCloudinary from './config/cloudinary.js';
 import userRoutes from './routes/user.js';
 import productRoutes from './routes/product.js';
+import { tokenExtractor } from './lib/utils.js';
 
 // app config
 config();
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use(cors());
 app.use(helmet());
 app.use(requestLogger);
+app.use(tokenExtractor);
 
 // api endpoints
 app.get('/', (req, res) => {

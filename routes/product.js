@@ -1,12 +1,14 @@
 import express from 'express';
 import * as productController from '../controllers/product.js';
 import upload from '../middlewares/multer.js';
+import { adminAuth } from '../middlewares/adminAuth.js';
 
 const router = express.Router();
 
 // add product
 router.post(
   '/add',
+  adminAuth,
   upload.fields([
     { name: 'image1', maxCount: 1 },
     { name: 'image2', maxCount: 1 },
@@ -17,7 +19,7 @@ router.post(
 );
 
 // remove product
-router.delete('/remove/:id', productController.removeProduct);
+router.delete('/remove/:id', adminAuth, productController.removeProduct);
 
 // get products
 router.get('/products', productController.getProducts);

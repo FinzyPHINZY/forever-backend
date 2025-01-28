@@ -1,10 +1,9 @@
 import validator from 'validator';
 import bcrypt from 'bcrypt';
 import User from '../models/user.js';
-import { createToken } from '../lib/utils.js';
+import jwt from 'jsonwebtoken';
 
 // register user
-
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -54,7 +53,7 @@ export const registerUser = async (req, res) => {
       token,
     });
   } catch (error) {
-    console.error('user registration failed: ', error);
+    console.error('user registration failed: ', error.message);
 
     return res
       .status(500)
@@ -87,7 +86,7 @@ export const login = async (req, res) => {
       .status(201)
       .json({ success: true, message: 'User signed in successfully', token });
   } catch (error) {
-    console.error('user login failed: ', error);
+    console.error('user login failed: ', error.message);
 
     return res
       .status(500)
@@ -98,8 +97,28 @@ export const login = async (req, res) => {
 // admin login
 export const adminLogin = async (req, res) => {
   try {
+    const { email, password } = req.body;
+
+    if (
+      email !== process.env.ADMIN_EMAIL ||
+      password !== process.env.ADMIN_PASSWORD
+    ) {
+      return res.status(401).json({ success: false, message: 'Unauthorized' });
+    }
+
+    const tokenData = {
+      email,
+      password,
+    };
+    const token = jwt.sign(tokenData, process.env.JWT_SECRET, {
+      expiresIn: '1d',
+    });
+
+    return res
+      .status(200)
+      .json({ success: true, message: 'Welcome admin', token });
   } catch (error) {
-    console.error('admin login failed: ', error);
+    console.error('admin login failed: ', error.message);
 
     return res
       .status(500)
