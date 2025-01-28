@@ -103,6 +103,20 @@ export const removeProduct = async (req, res) => {
 // get product
 export const getProduct = async (req, res) => {
   try {
+    const { id } = req.params;
+
+    const product = await Product.findById(id);
+    if (!product) {
+      return res
+        .status(404)
+        .json({ success: false, message: 'Product not found' });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Fetched product successfully',
+      data: product,
+    });
   } catch (error) {
     console.error('Failed to fetch product', error);
 
