@@ -2,6 +2,7 @@ import validator from 'validator';
 import bcrypt from 'bcrypt';
 import User from '../models/user.js';
 import jwt from 'jsonwebtoken';
+import { createToken } from '../lib/utils.js';
 
 // register user
 export const registerUser = async (req, res) => {

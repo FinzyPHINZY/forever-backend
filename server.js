@@ -7,7 +7,9 @@ import connectDB from './config/database.js';
 import connectCloudinary from './config/cloudinary.js';
 import userRoutes from './routes/user.js';
 import productRoutes from './routes/product.js';
+import cartRoutes from './routes/cart.js';
 import { tokenExtractor } from './lib/utils.js';
+import { userExtractor } from './middlewares/auth.js';
 
 // app config
 config();
@@ -26,6 +28,8 @@ app.use(cors());
 app.use(helmet());
 app.use(requestLogger);
 app.use(tokenExtractor);
+app.use(tokenExtractor);
+app.use(userExtractor);
 
 // api endpoints
 app.get('/', (req, res) => {
@@ -38,6 +42,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/user', userRoutes);
 app.use('/api/product', productRoutes);
+app.use('/api/cart', cartRoutes);
 
 app.listen(PORT, () => {
   console.log(
