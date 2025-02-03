@@ -20,4 +20,7 @@ router.post('/place', userExtractor, OrderController.placeOrder);
 // stripe - place order
 router.post('/stripe', userExtractor, OrderController.placeOrderStripe);
 
+// verify payment
+router.post('/verify-stripe', userExtractor, OrderController.verifyStripe);
+
 export default router;
