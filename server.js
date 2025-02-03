@@ -8,6 +8,7 @@ import connectCloudinary from './config/cloudinary.js';
 import userRoutes from './routes/user.js';
 import productRoutes from './routes/product.js';
 import cartRoutes from './routes/cart.js';
+import orderRoutes from './routes/order.js';
 import { tokenExtractor } from './middlewares/auth.js';
 
 // app config
@@ -40,6 +41,7 @@ app.get('/', (req, res) => {
 app.use('/api/user', userRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/cart', cartRoutes);
+app.use('/api/order', orderRoutes);
 
 app.listen(PORT, () => {
   console.log(
